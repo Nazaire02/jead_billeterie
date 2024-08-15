@@ -1,0 +1,28 @@
+.little-resume-container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #F8F8F8;
+    height: 200px;
+    padding-top: 3%;
+    padding-left: 4%;
+}
+
+.accueil-container {
+    margin-top: 3%;
+}
+
+.ticket-card {
+    border: 1px solid #ddd;
+    border-radius: .25rem;
+    box-shadow: 0 2px 4px rgba(0,0,0,.1);
+    padding: 1rem;
+  }
+  .ticket-card .btn-buy {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: .25rem;
+    padding: .5rem 1rem;
+    font-size: 1rem;
+  }
