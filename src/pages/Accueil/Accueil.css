@@ -3,13 +3,33 @@
     flex-direction: column;
     align-items: center;
     background-color: #F8F8F8;
-    height: 200px;
-    padding-top: 3%;
-    padding-left: 4%;
+    height: auto;
+    padding-top: 4%;
+    padding-bottom: 3%;
+    padding-left: 7%;
 }
 
 .accueil-container {
     margin-top: 3%;
+    width: 100%;
+}
+
+@media (max-width: 1200px) {
+  .little-resume-container {
+    padding-top: 5%;
+  }
+  .accueil-container {
+      margin-top: 4%;
+  }
+}
+
+@media (max-width: 700px) {
+  .little-resume-container {
+    padding-top: 10%;
+  }
+  .accueil-container {
+      margin-top: 4%;
+  }
 }
 
 .ticket-card {
@@ -25,4 +45,10 @@
     border-radius: .25rem;
     padding: .5rem 1rem;
     font-size: 1rem;
+  }
+
+  .accueil-container td{
+    padding-bottom: 50px;
+    border: none;
+    border-top: 1px solid rgba(0, 0, 0, 0.098); 
   }

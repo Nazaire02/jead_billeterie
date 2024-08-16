@@ -10,7 +10,7 @@ function Footer() {
         <div className="container">
             <div className="row align-items-center">
                 <div className="col-md-6 text-center text-md-start">
-                    <p className="footer-text mb-0">MARIAEVENT, Inc. © 2024 All Rights Reserved.</p>
+                    <p className="footer-text mb-0">JAED, Inc. © 2024 All Rights Reserved.</p>
                 </div>
                 <div className="col-md-6 text-center text-md-end">
                     <div className="social-icons d-flex justify-content-center justify-content-md-end gap-3">
