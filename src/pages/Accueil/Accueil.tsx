@@ -35,7 +35,7 @@ function Accueil() {
                     <div className="col-lg-5 mt-5 mt-lg-0">
                         <div className="card shadow border-0">
                             <div className="card-body">
-                                    <Link to="/buy-ticket" className='btn btn-primary text-uppercase w-100 mb-2'>J'achète mon ticket</Link>
+                                <Link to="/buy-ticket" className='btn btn-primary text-uppercase w-100 mb-2'>J'achète mon ticket</Link>
                                 <p className="pt-1 pb-3">Pour 3 200 F CFA, frais y compris.</p>
                                 <h2 className="mt-3">JAED SHOW EVENT</h2>
                                 <table className="table mb-0">
