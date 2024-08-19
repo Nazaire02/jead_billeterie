@@ -1,0 +1,13 @@
+.container-buy-ticket{
+    width: 100%;
+}
+
+.bar-border1 {
+    width: 150px;
+    height: 100%;
+    border-bottom: 5px solid #89753a;
+}
+
+.bar-border2 {
+    border-bottom: 3px solid #89753a;
+}

@@ -7,9 +7,9 @@ import Footer from './components/Footer/Footer';
 function App() {
   const navigate = useNavigate();
 
-  useEffect(()=>{
-    navigate('/accueil');
-  }, [])
+  // useEffect(()=>{
+  //   navigate('/accueil');
+  // }, [])
   
   return (
     <div className='App d-flex flex-column min-vh-100 body'>
