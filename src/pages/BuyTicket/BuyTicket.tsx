@@ -113,93 +113,98 @@ function BuyTicket() {
         </Box>
       </div>
 
-      <div className="col-12 text-center mt-3" style={{marginBottom:100}}>
-        <h4>Sélection des tickets</h4>
-        <div className="bar-border1 mx-auto mb-2"></div>
-        <p>Choisissez la quantité de ticket pour chaque catégorie.</p>
-      </div>
-
-      <div className='row mb-4'>
-        <div className='col-12 col-md-7'>
-          <div className='d-flex flex-column align-items-center'>
-            <h3 className=''>JAED SHOW EVENT</h3>
-            <div className='mt-3 d-flex flex-row align-items-center'>
-              <FontAwesomeIcon icon={faCalendarMinus} />
-              <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, de 20h à l'aube </p>
+      {numStep === 1 &&
+        (
+          <>
+            <div className="col-12 text-center mt-3" style={{ marginBottom: 100 }}>
+              <h4>Sélection des tickets</h4>
+              <div className="bar-border1 mx-auto mb-2"></div>
+              <p>Choisissez la quantité de ticket pour chaque catégorie.</p>
             </div>
-            <div className='mt-3 d-flex flex-row align-items-center'>
-              <FontAwesomeIcon icon={faMapLocation} />
-              <p className='mb-0 ms-2'>Attécoubé, Agban-village</p>
-            </div>
-          </div>
 
-          {categories.map((categorie) => (
-            <div key={categorie.id} className='mx-3 mt-4'>
-              <div className="d-flex align-items-center justify-content-between">
-                <div>
-                  <h4 className='fw-bold'>{categorie.label}</h4>
-                  <p className='mb-2' style={{ fontSize: 20, color: "green", fontStyle: "italic" }}>{categorie.price} FCFA</p>
-                  <p>{categorie.description}</p>
+            <div className='row mb-4'>
+              <div className='col-12 col-md-7'>
+                <div className='d-flex flex-column align-items-center'>
+                  <h3 className=''>JAED SHOW EVENT</h3>
+                  <div className='mt-3 d-flex flex-row align-items-center'>
+                    <FontAwesomeIcon icon={faCalendarMinus} />
+                    <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, de 20h à l'aube </p>
+                  </div>
+                  <div className='mt-3 d-flex flex-row align-items-center'>
+                    <FontAwesomeIcon icon={faMapLocation} />
+                    <p className='mb-0 ms-2'>Attécoubé, Agban-village</p>
+                  </div>
                 </div>
-                <div className="d-flex align-items-center">
-                  <button
-                    className="btn btn-outline-secondary me-2"
-                    onClick={() => handleDecrease(categorie.label)}
-                    aria-label="Decrease quantity"
-                  >
-                    -
-                  </button>
-                  <input
-                    type="text"
-                    value={categorie.label === "GRAND-PUBLIC" ? quantity_gp : categorie.label === "VIP" ? quantity_vip : quantity_vvip}
-                    className="form-control text-center"
-                    readOnly
-                    style={{ width: '60px' }}
-                  />
-                  <button
-                    className="btn btn-outline-secondary ms-2"
-                    onClick={() => handleIncrease(categorie.label)}
-                    aria-label="Increase quantity"
-                  >
-                    +
-                  </button>
+
+                {categories.map((categorie) => (
+                  <div key={categorie.id} className='mx-3 mt-4'>
+                    <div className="d-flex align-items-center justify-content-between">
+                      <div>
+                        <h4 className='fw-bold'>{categorie.label}</h4>
+                        <p className='mb-2' style={{ fontSize: 20, color: "green", fontStyle: "italic" }}>{categorie.price} FCFA</p>
+                        <p>{categorie.description}</p>
+                      </div>
+                      <div className="d-flex align-items-center">
+                        <button
+                          className="btn btn-outline-secondary me-2"
+                          onClick={() => handleDecrease(categorie.label)}
+                          aria-label="Decrease quantity"
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          value={categorie.label === "GRAND-PUBLIC" ? quantity_gp : categorie.label === "VIP" ? quantity_vip : quantity_vvip}
+                          className="form-control text-center"
+                          readOnly
+                          style={{ width: '60px' }}
+                        />
+                        <button
+                          className="btn btn-outline-secondary ms-2"
+                          onClick={() => handleIncrease(categorie.label)}
+                          aria-label="Increase quantity"
+                        >
+                          +
+                        </button>
+                      </div>
+                    </div>
+                    <div className="bar-border2 mb-2"></div>
+                  </div>
+                ))}
+              </div>
+
+              <div className='col-12 col-md-5 px-4'>
+                <img src={affiche} alt="Event Poster" className="img-fluid w-100 rounded-4 mb-4" />
+                <div>
+                  <p>RESUME</p>
+                  <div className="bar-border2 mb-2"></div>
+                  <table className="table">
+                    <tbody>
+                      {categories.map((categorie) => (
+                        <tr key={categorie.id}>
+                          <td className="text-capitalize">
+                            {categorie.label === "GRAND-PUBLIC" ? `${quantity_gp} × ${categorie.label}` :
+                              categorie.label === "VIP" ? `${quantity_vip} × ${categorie.label}` :
+                                `${quantity_vvip} × ${categorie.label}`}
+                          </td>
+                          <td className="text-end">
+                            {categorie.label === "GRAND-PUBLIC" ? `${categorie.price * quantity_gp} FCFA` :
+                              categorie.label === "VIP" ? `${categorie.price * quantity_vip} FCFA` :
+                                `${categorie.price * quantity_vvip} FCFA`}
+                          </td>
+                        </tr>
+                      ))}
+                      <tr>
+                        <td className="text-capitalize fw-bold">TOTAL</td>
+                        <td className="text-end fw-bold">{montantTotal()} FCFA</td>
+                      </tr>
+                    </tbody>
+                  </table>
                 </div>
               </div>
-              <div className="bar-border2 mb-2"></div>
             </div>
-          ))}
-        </div>
-
-        <div className='col-12 col-md-5 px-4'>
-          <img src={affiche} alt="Event Poster" className="img-fluid w-100 rounded-4 mb-4" />
-          <div>
-            <p>RESUME</p>
-            <div className="bar-border2 mb-2"></div>
-            <table className="table">
-              <tbody>
-                {categories.map((categorie) => (
-                  <tr key={categorie.id}>
-                    <td className="text-capitalize">
-                      {categorie.label === "GRAND-PUBLIC" ? `${quantity_gp} × ${categorie.label}` : 
-                       categorie.label === "VIP" ? `${quantity_vip} × ${categorie.label}` : 
-                       `${quantity_vvip} × ${categorie.label}`}
-                    </td>
-                    <td className="text-end">
-                      {categorie.label === "GRAND-PUBLIC" ? `${categorie.price * quantity_gp} FCFA` : 
-                       categorie.label === "VIP" ? `${categorie.price * quantity_vip} FCFA` : 
-                       `${categorie.price * quantity_vvip} FCFA`}
-                    </td>
-                  </tr>
-                ))}
-                <tr>
-                  <td className="text-capitalize fw-bold">TOTAL</td>
-                  <td className="text-end fw-bold">{montantTotal()} FCFA</td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-      </div>
+          </>
+        )}
 
       <div className='d-flex justify-content-center px-4'>
         <a className='btn btn-primary text-uppercase w-100 w-md-25 mb-4'>CONTINUER</a>
