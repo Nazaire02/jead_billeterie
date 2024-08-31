@@ -9,7 +9,7 @@ import './index.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Accueil from './pages/Accueil/Accueil.tsx';
 import BuyTicket from './pages/BuyTicket/BuyTicket.tsx';
-import MyTicket from './pages/MyTicket/MyTicket.tsx';
+import MyTicket from "./pages/MyTicket/MyTicket.tsx";
 
 const router = createBrowserRouter([
   {

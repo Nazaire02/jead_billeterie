@@ -31,7 +31,7 @@ const MobileMenu = () => {
             <div className={`menubar ${isMenuBarActive ? "active" : ""}`}>
                 <ul>
                     <li>
-                        <Link to="/accueil">Mon ticket</Link>
+                        <Link to="/my-ticket">Mon ticket</Link>
                     </li>
                     <li>
                         <Link to="/accueil">Nous découvrir</Link>
@@ -67,7 +67,7 @@ const DesktopMenu = () => (
             <div className="list-unstyled d-flex">
                 <ul className="mb-0 list-unstyled d-flex">
                     <li className="me-3">
-                        <a href="#"><Link to="/accueil">Mon ticket</Link></a>
+                        <a href="#"><Link to="/my-ticket">Mon ticket</Link></a>
                     </li>
                     <li className="me-3">
                         <a href="#"><Link to="/accueil">Nous découvrir</Link></a>

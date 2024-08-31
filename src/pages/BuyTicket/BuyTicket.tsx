@@ -6,7 +6,8 @@ import StepLabel from '@mui/material/StepLabel';
 import './BuyTicket.css';
 import affiche from '../../assets/images/affiche.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCalendarMinus, faMapLocation } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faCalendarMinus, faMapLocation } from '@fortawesome/free-solid-svg-icons';
+import { createPaymentLink } from '../../api/payment';
 
 function BuyTicket() {
   const steps = [
@@ -36,10 +37,11 @@ function BuyTicket() {
     },
   ];
 
-  const [numStep, setNumStep] = useState(2);
+  const [numStep, setNumStep] = useState(1);
   const [quantity_gp, setQuantity_gp] = useState(0);
   const [quantity_vip, setQuantity_vip] = useState(0);
   const [quantity_vvip, setQuantity_vvip] = useState(0);
+  const [paymentURL, setPaymentURL] = useState("");
 
   const handleIncrease = (categorie: string) => {
     switch (categorie) {
@@ -86,6 +88,17 @@ function BuyTicket() {
       if (categorie.label === "VVIP") return total + quantity_vvip * categorie.price;
       return total;
     }, 0);
+  }
+
+  const createPayment = async () => {
+    try {
+      setNumStep(2)
+      const montant = montantTotal();
+      const res = await createPaymentLink({ montant })
+      setPaymentURL(res.data.payment_url)
+    } catch (error) {
+      console.log(error, "error")
+    }
   }
 
   return (
@@ -203,12 +216,30 @@ function BuyTicket() {
                 </div>
               </div>
             </div>
+            <div className="d-flex flex-1 justify-content-center px-4 mt-25">
+              <a className="btn btn-primary text-uppercase col-12 col-md-3 mb-4" onClick={createPayment}>
+                CONTINUER
+              </a>
+            </div>
           </>
-        )}
-
-      <div className='d-flex justify-content-center px-4'>
-        <a className='btn btn-primary text-uppercase w-100 w-md-25 mb-4'>CONTINUER</a>
-      </div>
+        )
+      }
+      {numStep === 2 &&
+        (
+          <>
+            <div className="d-flex flex-1 justify-content-center px-4 mt-25" style={{ marginTop: "8%", marginBottom:"7%" }}>
+              <a className="btn btn-primary text-uppercase col-12 col-md-3 mb-4" href={paymentURL}>
+                J'accède au guichet
+              </a>
+            </div>
+            <div className="d-flex justify-content-start container-fluid">
+              <button className="btn btn-outline-secondary" onClick={() => setNumStep(1)}>
+                <FontAwesomeIcon icon={faArrowLeft} /> Retour
+              </button>
+            </div>
+          </>
+        )
+      }
     </div>
   );
 }
