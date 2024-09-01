@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
-import './MyTicket.css';
+import './Ticket.css';
 import QRCode from "react-qr-code";
 import ticket from "../../assets/images/ticket.png";
 
-const MyTicket = () => {
-    const ticketRef = useRef<HTMLDivElement>(null);
+const Ticket = (props: any) => {
+    const ticketRef = useRef(null);
 
     const handleGeneratePdf = () => {
         if (ticketRef.current) {
@@ -34,7 +34,7 @@ const MyTicket = () => {
     };
 
     return (
-        <div className="container" style={{ marginTop: "10%", display:"flex", flexDirection:"column", alignItems:"center" }}>
+        <div className="container" style={{ display:"flex", flexDirection:"column", alignItems:"center" }}>
             <button className="btn btn-primary mb-3" onClick={handleGeneratePdf}>
                 Télécharger
             </button>
@@ -44,7 +44,7 @@ const MyTicket = () => {
                         <img src={ticket} alt="" width={500}/>
                     </div>
                     <div>
-                        <QRCode value="222" size={210} />
+                        <QRCode value={props.payment_id} size={210} />
                     </div>
                 </div>
             </div>
@@ -52,4 +52,4 @@ const MyTicket = () => {
     );
 };
 
-export default MyTicket;
+export default Ticket;

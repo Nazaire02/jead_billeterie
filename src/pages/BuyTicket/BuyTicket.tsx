@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import Box from '@mui/material/Box';
 import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
@@ -8,6 +8,8 @@ import affiche from '../../assets/images/affiche.jpg';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCalendarMinus, faMapLocation } from '@fortawesome/free-solid-svg-icons';
 import { createPaymentLink } from '../../api/payment';
+import { useParams } from 'react-router-dom';
+import Ticket from '../../components/Ticket/Ticket';
 
 function BuyTicket() {
   const steps = [
@@ -37,7 +39,10 @@ function BuyTicket() {
     },
   ];
 
-  const [numStep, setNumStep] = useState(1);
+  const { step } = useParams();
+  const [numStep, setNumStep] = useState(() => {
+    return step === '3' ? 3 : 1;
+  });
   const [quantity_gp, setQuantity_gp] = useState(0);
   const [quantity_vip, setQuantity_vip] = useState(0);
   const [quantity_vvip, setQuantity_vvip] = useState(0);
@@ -239,6 +244,12 @@ function BuyTicket() {
             </div>
           </>
         )
+      }
+      {
+        numStep === 3 &&
+        <div className='mt-2'>
+          <Ticket payment_id="222"/>
+        </div>
       }
     </div>
   );

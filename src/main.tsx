@@ -21,7 +21,7 @@ const router = createBrowserRouter([
         element: <Accueil />,
       },
       {
-        path: "buy-ticket",
+        path: "buy-ticket/:step",
         element: <BuyTicket />,
       },
       {
