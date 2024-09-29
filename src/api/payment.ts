@@ -11,3 +11,7 @@ const config = {
 export async function createPaymentLink(data: any) {
     return await axios.post(BACKEND_BASE_URL + "customers/create-payment", data, config)
 }
+
+export async function getPayments(token: string|null) {
+    return await axios.post(BACKEND_BASE_URL + "customers/create-payment", {token}, config)
+}

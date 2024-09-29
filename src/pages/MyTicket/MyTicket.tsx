@@ -1,55 +1,113 @@
-import React, { useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import './MyTicket.css';
 import QRCode from "react-qr-code";
 import ticket from "../../assets/images/ticket.png";
+import { getPayments } from '../../api/payment';
+import { ticketData } from '../../class/ticketData';
 
 const MyTicket = () => {
     const ticketRef = useRef<HTMLDivElement>(null);
+    const [isError, setIsError] = useState(false);
+    const [isLoading, setIsLoading] = useState(false);
+    const [ticketsData, setTicketsData] = useState([ticketData]);
+
+    const getPaymentsByToken = async () => {
+        const token = localStorage.getItem("token");
+        setIsLoading(true);
+        try {
+            const res = await getPayments(token);
+            if (res.data.statut === true) {
+
+            } else {
+                setIsError(true);
+            }
+        } catch (error) {
+            setIsError(true);
+        } finally {
+            setIsLoading(false);
+        }
+    };
+
+    useEffect(() => {
+        getPaymentsByToken();
+    }, [])
 
     const handleGeneratePdf = () => {
         if (ticketRef.current) {
-            html2canvas(ticketRef.current, { 
-                scale: 2,
-                useCORS: true
-            }).then((canvas) => {
-                const imgData = canvas.toDataURL('image/png');
+            ticketsData.forEach((ticketData, index) => {
+                html2canvas(ticketRef.current as HTMLElement, {
+                    scale: 2,
+                    useCORS: true
+                }).then((canvas) => {
+                    const imgData = canvas.toDataURL('image/png');
+                    const imgWidth = canvas.width;
+                    const imgHeight = canvas.height;
 
-                // Calcul de la taille du canvas pour le PDF
-                const imgWidth = canvas.width;
-                const imgHeight = canvas.height;
+                    const doc = new jsPDF({
+                        orientation: 'landscape',
+                        unit: 'px',
+                        format: [imgWidth, imgHeight],
+                    });
 
-                // Créer un PDF avec les dimensions exactes de l'image
-                const doc = new jsPDF({
-                    orientation: 'landscape',
-                    unit: 'px',
-                    format: [imgWidth, imgHeight], // Format ajusté à l'image
+                    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+                    doc.save(ticketData.token);
                 });
-
-                doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                doc.save('concert-ticket.pdf');
             });
         }
     };
 
-    return (
-        <div className="container" style={{ marginTop: "10%", display:"flex", flexDirection:"column", alignItems:"center" }}>
-            <button className="btn btn-primary mb-3" onClick={handleGeneratePdf}>
-                Télécharger
-            </button>
-            <div ref={ticketRef} className="ticket-container">
-                <div className="ticket-body">
-                    <div className="ticket-image">
-                        <img src={ticket} alt="" width={500}/>
-                    </div>
-                    <div>
-                        <QRCode value="222" size={210} />
-                    </div>
-                </div>
+    if (isError) {
+        return (
+            <div className="alert alert-danger mx-4" role="alert" style={{ marginTop: 100 }}>
+                Une erreur s'est produite lors du paiement. Veuillez réessayer.
             </div>
-        </div>
-    );
-};
+        );
+    }
 
+    return (
+        <>
+            {isLoading ? (
+                <a className="btn btn-primary text-uppercase col-12 col-md-3 mb-4">
+                    <div className="spinner-border" role="status">
+                        <span className="sr-only">Loading...</span>
+                    </div>
+                </a>
+            ) : (
+                <div
+                    className="container"
+                    style={{
+                        marginTop: "10%",
+                        display: "flex",
+                        flexDirection: "column",
+                        alignItems: "center",
+                    }}
+                >
+                    <button className="btn btn-primary mb-3" onClick={handleGeneratePdf}>
+                        Télécharger les 4 tickets
+                    </button>
+
+                    {ticketsData.map((ticketData, index) => (
+                        <div
+                            key={index}
+                            ref={ticketRef} // Assurez-vous que chaque `ticketRef` est géré correctement s'il s'agit de plusieurs éléments
+                            className="ticket-container"
+                            style={{ marginBottom: "20px" }}
+                        >
+                            <div className="ticket-body">
+                                <div className="ticket-image">
+                                    <img src={ticket} alt="Ticket" width={500} />
+                                </div>
+                                <div>
+                                    <QRCode value={ticketData.qrValue} size={210} /> {/* QR code spécifique */}
+                                </div>
+                            </div>
+                        </div>
+                    ))}
+                </div>
+            )}
+        </>
+    );
+}
 export default MyTicket;
