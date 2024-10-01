@@ -12,7 +12,7 @@ function Footer() {
                 <div className="col-md-6 text-center text-md-start">
                     <p className="footer-text mb-0">JAED, Inc. © 2024 All Rights Reserved.</p>
                 </div>
-                <div className="col-md-6 text-center text-md-end">
+                {/* <div className="col-md-6 text-center text-md-end">
                     <div className="social-icons d-flex justify-content-center justify-content-md-end gap-3">
                         <a href="https://www.facebook.com/mariaevent" target="_blank">
                             <img src={facebook} alt="Facebook logo"/>
@@ -27,7 +27,7 @@ function Footer() {
                             <img src={tiktok} alt="Instagram logo"/>
                         </a>
                     </div>
-                </div>
+                </div> */}
             </div>
         </div>
     </footer>

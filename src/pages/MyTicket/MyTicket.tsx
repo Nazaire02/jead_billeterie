@@ -5,13 +5,13 @@ import './MyTicket.css';
 import QRCode from "react-qr-code";
 import ticket from "../../assets/images/ticket.png";
 import { getPayments } from '../../api/payment';
-import { ticketData } from '../../class/ticketData';
+import { TicketData } from '../../class/ticketData';
 
 const MyTicket = () => {
     const ticketRef = useRef<HTMLDivElement>(null);
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [ticketsData, setTicketsData] = useState([ticketData]);
+    const [ticketsData, setTicketsData] = useState<TicketData[]>([]);
 
     const getPaymentsByToken = async () => {
         const token = localStorage.getItem("token");
@@ -19,7 +19,8 @@ const MyTicket = () => {
         try {
             const res = await getPayments(token);
             if (res.data.statut === true) {
-
+                const tickets: TicketData[] = res.data.tickets;
+                setTicketsData(tickets);
             } else {
                 setIsError(true);
             }
@@ -52,7 +53,7 @@ const MyTicket = () => {
                     });
 
                     doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    doc.save(ticketData.token);
+                    doc.save(`jaed_show_${ticketData.token}_${index}`);
                 });
             });
         }
@@ -85,13 +86,13 @@ const MyTicket = () => {
                     }}
                 >
                     <button className="btn btn-primary mb-3" onClick={handleGeneratePdf}>
-                        Télécharger les 4 tickets
+                        Télécharger les {ticketsData.length} tickets
                     </button>
 
                     {ticketsData.map((ticketData, index) => (
                         <div
                             key={index}
-                            ref={ticketRef} // Assurez-vous que chaque `ticketRef` est géré correctement s'il s'agit de plusieurs éléments
+                            ref={ticketRef}
                             className="ticket-container"
                             style={{ marginBottom: "20px" }}
                         >
@@ -100,7 +101,7 @@ const MyTicket = () => {
                                     <img src={ticket} alt="Ticket" width={500} />
                                 </div>
                                 <div>
-                                    <QRCode value={ticketData.qrValue} size={210} /> {/* QR code spécifique */}
+                                    <QRCode value={ticketData._id} size={210} />
                                 </div>
                             </div>
                         </div>

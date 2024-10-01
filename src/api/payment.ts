@@ -13,5 +13,5 @@ export async function createPaymentLink(data: any) {
 }
 
 export async function getPayments(token: string|null) {
-    return await axios.post(BACKEND_BASE_URL + "customers/create-payment", {token}, config)
+    return await axios.post(BACKEND_BASE_URL + "customers/get-tickets", {token}, config)
 }

@@ -13,7 +13,6 @@ import { useParams } from 'react-router-dom';
 
 function BuyTicket() {
   const steps = ['Tickets', 'Paiement', 'Reçu de paiement'];
-
   const { step } = useParams();
   const [numStep, setNumStep] = useState(() => (step === '3' ? 3 : 1));
   const [quantity, setQuantity] = useState(0);
@@ -33,15 +32,14 @@ function BuyTicket() {
     try {
       const res = await createPaymentLink({ quantity });
       if (res.data.statut === true) {
-        localStorage.setItem("token", res.data.token)
+        localStorage.setItem("token", res.data.token);
         window.location.href = res.data.url;
-      } else{
+      } else {
         setIsError(true);
+        setIsLoading(false);
       }
     } catch (error) {
       setIsError(true);
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -89,10 +87,10 @@ function BuyTicket() {
           <div className='row mb-4'>
             <div className='col-12 col-md-7'>
               <div className='d-flex flex-column align-items-center'>
-                <h3 className=''>JAED SHOW EVENT</h3>
+                <h3>JAED SHOW EVENT</h3>
                 <div className='mt-3 d-flex flex-row align-items-center'>
                   <FontAwesomeIcon icon={faCalendarMinus} />
-                  <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, de 20h à l'aube </p>
+                  <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, de 20h à l'aube</p>
                 </div>
                 <div className='mt-3 d-flex flex-row align-items-center'>
                   <FontAwesomeIcon icon={faMapLocation} />
@@ -143,12 +141,8 @@ function BuyTicket() {
                 <table className="table">
                   <tbody>
                     <tr>
-                      <td className="text-capitalize">
-                        {`${quantity} × Ticket(s)`}
-                      </td>
-                      <td className="text-end">
-                        {`${quantity} × ${ticketPrice}`}
-                      </td>
+                      <td className="text-capitalize">{`${quantity} × Ticket(s)`}</td>
+                      <td className="text-end">{`${quantity} × ${ticketPrice}`}</td>
                     </tr>
                     <tr>
                       <td className="text-capitalize fw-bold">TOTAL</td>
