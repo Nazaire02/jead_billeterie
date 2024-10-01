@@ -40,6 +40,7 @@ function BuyTicket() {
       }
     } catch (error) {
       setIsError(true);
+      setIsLoading(false);
     }
   };
 
