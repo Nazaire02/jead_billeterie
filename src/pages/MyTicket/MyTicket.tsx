@@ -18,8 +18,9 @@ const MyTicket = () => {
         setIsLoading(true);
         try {
             const res = await getPayments(token);
+            console.log( res.data)
             if (res.data.statut === true) {
-                const tickets: TicketData[] = res.data.tickets;
+                const tickets: TicketData[] = res.data.payments;
                 setTicketsData(tickets);
             } else {
                 setIsError(true);
