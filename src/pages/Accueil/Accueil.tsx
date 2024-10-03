@@ -1,4 +1,3 @@
-import React from 'react';
 import './Accueil.css';
 import affiche from '../../assets/images/affiche.jpg'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
