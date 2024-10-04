@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import "./NavBar.css";
-import { Link } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faWhatsapp } from "@fortawesome/free-brands-svg-icons";
+import { faPhone } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from "react";
+import { Link } from 'react-router-dom';
+import "./NavBar.css";
 
 const MobileMenu = () => {
     const [isMenuBarActive, setIsMenuBarActive] = useState(false);
@@ -16,7 +16,7 @@ const MobileMenu = () => {
         <div>
             <nav className="d-flex align-items-center justify-content-between py-2">
                 <div className="mx-auto">
-                    <h1 className="mb-0">JAED EVENT SHOW</h1>
+                    <h1 className="mb-0"><Link to="/">JAED CONCERT</Link></h1>
                 </div>
 
                 <div className="list-unstyled d-flex">
@@ -31,10 +31,10 @@ const MobileMenu = () => {
             <div className={`menubar ${isMenuBarActive ? "active" : ""}`}>
                 <ul>
                     <li>
-                        <Link to="/my-ticket">Mon ticket</Link>
+                        <Link to="/">Accueil</Link>
                     </li>
                     <li>
-                        <Link to="/accueil">Nous découvrir</Link>
+                        <Link to="/discover-us">Nous découvrir</Link>
                     </li>
                 </ul>
             </div>
@@ -50,27 +50,26 @@ const DesktopMenu = () => (
                 <div className="d-flex flex-column">
                     <div className="d-flex align-items-center mb-2">
                         <FontAwesomeIcon icon={faWhatsapp} style={{ color: "#25D366" }} className="me-2" />
-                        <span className="text-black">+225 07-796-693-186</span>
+                        <span className="text-black">+225 07-063-707-25</span>
                     </div>
                     <div className="d-flex align-items-center">
                         <FontAwesomeIcon icon={faPhone} style={{ color: "#25D366" }} />
-                        <span className="text-black">+225 07-796-693-186</span>
+                        <span className="text-black">+225 01-419-929-67</span>
                     </div>
                 </div>
             </div>
 
             <div className="mx-auto">
-                {/* Logo ou texte centré */}
-                <h1 className="mb-0">JAED EVENT SHOW</h1>
+                <h1 className="mb-0"><Link to="/">JAED CONCERT</Link></h1>
             </div>
 
             <div className="list-unstyled d-flex">
                 <ul className="mb-0 list-unstyled d-flex">
-                    <li className="me-3">
-                        <a href="#"><Link to="/my-ticket">Mon ticket</Link></a>
+                    <li>
+                        <a href="#"><Link to="/">Accueil</Link></a>
                     </li>
-                    <li className="me-3">
-                        <a href="#"><Link to="/accueil">Nous découvrir</Link></a>
+                    <li>
+                        <a href="#"><Link to="/discover-us">Nous découvrir</Link></a>
                     </li>
                 </ul>
             </div>

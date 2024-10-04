@@ -23,7 +23,7 @@ function BuyTicket() {
   const handleIncrease = () => setQuantity(quantity + 1);
   const handleDecrease = () => setQuantity(quantity > 0 ? quantity - 1 : 0);
 
-  function montantTotal() {
+  function montantTotalWithoutFees() {
     return quantity * ticketPrice;
   }
 
@@ -88,10 +88,10 @@ function BuyTicket() {
           <div className='row mb-4'>
             <div className='col-12 col-md-7'>
               <div className='d-flex flex-column align-items-center'>
-                <h3>JAED SHOW EVENT</h3>
+                <h3>JAED CONCERT</h3>
                 <div className='mt-3 d-flex flex-row align-items-center'>
                   <FontAwesomeIcon icon={faCalendarMinus} />
-                  <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, de 20h à l'aube</p>
+                  <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, à partir de 17h</p>
                 </div>
                 <div className='mt-3 d-flex flex-row align-items-center'>
                   <FontAwesomeIcon icon={faMapLocation} />
@@ -146,8 +146,12 @@ function BuyTicket() {
                       <td className="text-end">{`${quantity} × ${ticketPrice}`}</td>
                     </tr>
                     <tr>
+                      <td className="text-capitalize fw-bold">Frais</td>
+                      <td className="text-end fw-bold">{Math.ceil(0.04 * montantTotalWithoutFees())} FCFA</td>
+                    </tr>
+                    <tr>
                       <td className="text-capitalize fw-bold">TOTAL</td>
-                      <td className="text-end fw-bold">{montantTotal()} FCFA</td>
+                      <td className="text-end fw-bold">{montantTotalWithoutFees() + Math.ceil(0.04 * montantTotalWithoutFees())} FCFA</td>
                     </tr>
                   </tbody>
                 </table>

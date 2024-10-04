@@ -9,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Accueil from './pages/Accueil/Accueil.tsx';
 import BuyTicket from './pages/BuyTicket/BuyTicket.tsx';
 import MyTicket from "./pages/MyTicket/MyTicket.tsx";
+import Apropos from "./pages/Apropos/Apropos.tsx";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +27,10 @@ const router = createBrowserRouter([
       {
         path: "my-ticket",
         element: <MyTicket/>,
+      },
+      {
+        path: "discover-us",
+        element: <Apropos/>,
       }
     ],
   },

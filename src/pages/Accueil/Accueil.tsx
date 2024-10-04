@@ -10,11 +10,11 @@ function Accueil() {
         <div className='accueil-container'>
             <div className='little-resume-container d-flex flex-column align-items-start'>
                 <div>
-                    <h3 className='fw-bold'>JAED SHOW EVENT</h3>
+                    <h3 className='fw-bold'>JAED CONCERT</h3>
                 </div>
                 <div className='mt-2 d-flex flex-row align-items-center'>
                     <FontAwesomeIcon icon={faCalendarMinus} />
-                    <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, de 20h à l'aube </p>
+                    <p className='mb-0 ms-2'>Vendredi 27 décembre 2024, à partir de 17h </p>
                 </div>
                 <div className='mt-2 d-flex flex-row align-items-center'>
                     <FontAwesomeIcon icon={faMapLocation} />
@@ -28,19 +28,19 @@ function Accueil() {
                             <img src={affiche} alt="Event Poster" className="img-fluid rounded-4" />
                         </div>
                         <div className="mb-4">
-                            <p>Le <strong>27 décembre 2024</strong> à partir de <strong>20h</strong>, se tiendra la première édition du <strong>JAED SHOW EVENT</strong> à <strong>Attécoubé, Agban village au niveau de l'esplanade de la chefferie</strong>. Cet événement offre une expérience africaine explosive et unique grâce à son cadre, son contenu, son emplacement et sa programmation musicale qui crée une ambiance folle.</p>
+                            <p>Le <strong>27 décembre 2024</strong> à partir de <strong>17h</strong>, se tiendra la première édition du <strong>JAED CONCERT</strong> à <strong>Attécoubé, Agban village au niveau de l'esplanade de la chefferie</strong>. Cet événement offre une expérience africaine explosive et unique grâce à son cadre, son contenu, son emplacement et sa programmation musicale qui crée une ambiance folle.</p>
                         </div>
                     </div>
                     <div className="col-lg-5 mt-5 mt-lg-0">
                         <div className="card shadow border-0">
                             <div className="card-body">
                                 <Link to="/buy-ticket/step" className='btn btn-primary text-uppercase w-100 mb-2'>J'achète mon ticket</Link>
-                                <h2 className="mt-3">JAED SHOW EVENT</h2>
+                                <h2 className="mt-3">JAED CONCERT</h2>
                                 <table className="table mb-0">
                                     <tbody>
                                         <tr>
                                             <td className="text-capitalize">Catégorie</td>
-                                            <td className="text-end">Concert-Show</td>
+                                            <td className="text-end">Concert</td>
                                         </tr>
                                         <tr>
                                             <td className="text-capitalize">Ville</td>
@@ -48,11 +48,11 @@ function Accueil() {
                                         </tr>
                                         <tr>
                                             <td className="text-capitalize">Lieu</td>
-                                            <td className="text-end">Mother Africa Beach, Abidjan</td>
+                                            <td className="text-end">Attécoubé, Agban Village</td>
                                         </tr>
                                         <tr>
                                             <td className="text-capitalize">Date et heure</td>
-                                            <td className="text-end">Vendredi, 27 Décembre, 2024 · 20h00 au petit matin</td>
+                                            <td className="text-end">Vendredi, 27 Décembre, 2024 A partir de 17h</td>
                                         </tr>
                                         <tr>
                                             <td className="text-capitalize">Artiste</td>
@@ -65,7 +65,7 @@ function Accueil() {
                                         </tr>
                                         <tr>
                                             <td className="text-capitalize">Téléphone</td>
-                                            <td className="text-end">+2250705116325</td>
+                                            <td className="text-end">+225 0141992967</td>
                                         </tr>
                                     </tbody>
                                 </table>
