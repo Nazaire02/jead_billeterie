@@ -27,27 +27,27 @@ function Apropos() {
           <div className='col-md-4'>
             <div className='card mb-4 shadow-sm'>
               <div className='card-body'>
-                <h5 className='card-title'>Titre de la musique 1</h5>
-                <p className='card-text'>Description brève de la musique ou de l'album.</p>
-                <a href='#' className='btn btn-primary' target='_blanck'>Écouter</a>
+                <h5 className='card-title fw-bold fst-italic'>De retour</h5>
+                <p className='card-text'>Un single qui évoque notre retour après plusieurs absences sur la scène musicale. Appréciez donc !</p>
+                <a href='https://youtu.be/4G92bj7_Mck?si=a_bgUJT0U34Y1NuP' className='btn btn-primary' target='_blanck'>Écouter</a>
               </div>
             </div>
           </div>
           <div className='col-md-4'>
             <div className='card mb-4 shadow-sm'>
               <div className='card-body'>
-                <h5 className='card-title'>Titre de la musique 2</h5>
-                <p className='card-text'>Description brève de la musique ou de l'album.</p>
-                <a href='#' className='btn btn-primary' target='_blanck'>Écouter</a>
+                <h5 className='card-title fw-bold fst-italic'>Dôhi</h5>
+                <p className='card-text'>Dans le jargon ivoirien, le terme <span className='fw-bold'>Dôhi</span> désigne le mensonge. Le fameux duo Jaed, en cherchant à apporter de la joie aux auditeurs à travers cette magnifique chanson, dénonce le mensonge dans la société.</p>
+                <a href='https://youtu.be/0x8A41mJc6I?si=ljQtU72OebRwkfcY' className='btn btn-primary' target='_blanck'>Écouter</a>
               </div>
             </div>
           </div>
           <div className='col-md-4'>
             <div className='card mb-4 shadow-sm'>
               <div className='card-body'>
-                <h5 className='card-title'>Titre de la musique 3</h5>
-                <p className='card-text'>Description brève de la musique ou de l'album.</p>
-                <a href='#' className='btn btn-primary' target='_blanck'>Écouter</a>
+                <h5 className='card-title'>Pinhou </h5>
+                <p className='card-text'>Dans la noushi ivoirienne, le terme <span className='fw-bold'>Pinhou</span> désigne la prostituée. Grâce à cette belle Vibe🎼 qui transcende l'âme des fans, le duo Jaed sensibilise la jeunesse ivoirienne, en particulier les femmes ivoiriennes, à ne pas se laisser influencer par qui que ce soit.</p>
+                <a href='https://youtu.be/Tt-cNZfEYu4?si=ZgYUKmgdb9OEGSMZ' className='btn btn-primary' target='_blanck'>Écouter</a>
               </div>
             </div>
           </div>
