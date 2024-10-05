@@ -5,6 +5,11 @@ import react from '@vitejs/plugin-react'
 export default defineConfig({
   plugins: [react()],
   server: {
-    host: true, // Permet l'accès depuis des périphériques externes
+    proxy: {
+      '/api': {
+        target: 'http://151.80.117.157:8081',
+        secure: false,
+      },
+    },
   },
 })
