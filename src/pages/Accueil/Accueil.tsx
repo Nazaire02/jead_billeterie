@@ -23,7 +23,7 @@ function Accueil() {
             </div>
             <div className="container my-4">
                 <div className="row flex-1">
-                    <div className="col-lg-7">
+                    <div className="col-lg-6">
                         <div className="d-flex justify-content-center align-items-center mb-4">
                             <img src={affiche} alt="Event Poster" className="img-fluid rounded-4" />
                         </div>
@@ -31,7 +31,7 @@ function Accueil() {
                             <p>Le <strong>27 décembre 2024</strong> à partir de <strong>17h</strong>, se tiendra la première édition du <strong>JAED CONCERT</strong> à <strong>Attécoubé, Agban village au niveau de l'esplanade de la chefferie</strong>. Cet événement offre une expérience africaine explosive et unique grâce à son cadre, son contenu, son emplacement et sa programmation musicale qui crée une ambiance folle.</p>
                         </div>
                     </div>
-                    <div className="col-lg-5 mt-5 mt-lg-0">
+                    <div className="col-lg-6 mt-5 mt-lg-0">
                         <div className="card shadow border-0">
                             <div className="card-body">
                                 <Link to="/buy-ticket/step" className='btn btn-primary text-uppercase w-100 mb-2'>J'achète mon ticket</Link>
