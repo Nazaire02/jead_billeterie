@@ -1,12 +1,12 @@
 .ticket-container {
-    width: 90vw; /* Prendre 90% de la largeur de l'écran */
+    width: 90vw; /* Adapter la largeur à 90% de l'écran */
     max-width: 820px;
-    padding: 10px 0;
+    padding: 10px;
     text-align: center;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: row; /* Par défaut en ligne */
+    flex-direction: row; /* Toujours en ligne */
     align-items: center;
     justify-content: center;
     margin: auto;
@@ -14,44 +14,44 @@
 
 .ticket-body {
     display: flex;
-    flex-direction: row; /* Par défaut en ligne */
-    justify-content: center;
+    flex-direction: row; /* En ligne pour garder l'image et le QR côte à côte */
+    justify-content: space-between;
     align-items: center;
 }
 
 /* Gestion du QR code */
 .qr-code {
-    width: 20vw; /* Ajuster la taille à 20% de la largeur de l'écran */
-    max-width: 210px; /* Taille maximale */
+    width: 20vw; /* Ajuster à 20% de la largeur de l'écran */
+    max-width: 210px;
     height: auto;
 }
 
 /* Gestion de l'image du ticket */
-.ticket-image {
-    width: 80vw; /* Ajuster à 80% de la largeur de l'écran */
+.ticket-image img {
+    width: 60vw; /* Ajuster à 60% de la largeur de l'écran */
     max-width: 500px;
+    height: auto;
 }
 
-/* Ajustements spécifiques pour les petits écrans */
+/* Pour les petits écrans */
 @media (max-width: 600px) {
     .ticket-container {
-        flex-direction: column; /* Passer en colonne sur petits écrans */
-        width: 100%; /* Prendre toute la largeur */
+        width: 100vw; /* Prendre toute la largeur de l'écran */
+        max-width: none; /* Supprimer la limitation de la largeur */
     }
 
     .ticket-body {
-        flex-direction: column; /* Les éléments sont empilés */
-    }
-
-    .ticket-image {
-        width: 100%; /* L'image prend toute la largeur */
-        max-width: none; /* Retirer la limite de taille */
-        margin-bottom: 10px; /* Ajouter de l'espace sous l'image */
+        justify-content: center;
     }
 
     .qr-code {
-        width: 50vw; /* Le QR code occupe 50% de la largeur de l'écran */
-        max-width: 210px; /* Taille maximale */
-        margin-top: 10px; /* Ajouter de l'espace au-dessus du QR code */
+        width: 30vw; /* Ajuster à 30% de la largeur de l'écran */
+        max-width: 150px;
+        margin-left: 10px; /* Ajouter un petit espacement à gauche du QR */
+    }
+
+    .ticket-image img {
+        width: 65vw; /* Prendre plus de place mais rester proportionné */
+        max-width: 400px; /* Limiter la largeur max pour que ce soit encore visible */
     }
 }
