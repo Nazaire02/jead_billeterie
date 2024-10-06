@@ -1,27 +1,51 @@
 .ticket-container {
-    width: 98%; /* Correspond à 180 mm */
+    width: 90vw; /* Utiliser 90% de la largeur de l'écran */
     max-width: 820px;
-    padding: 10px 0; 
+    padding: 10px 0;
     text-align: center;
     background-color: #fff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* Pour gérer la mise en page en colonne sur les petits écrans */
     align-items: center;
     justify-content: center;
+    margin: auto; /* Centrer horizontalement */
 }
 
 .ticket-body {
     display: flex;
-    flex-direction: row;
+    flex-direction: column; /* Passer en colonne pour les petits écrans */
     justify-content: center;
+    align-items: center;
 }
 
 .qr-code {
-    width: 80px;
-    height: 80px;
+    width: 20vw; /* Ajuster la taille du QR code à 20% de la largeur de l'écran */
+    max-width: 210px; /* Limite maximale de 210px */
+    height: auto; /* Conserver les proportions */
 }
 
-.ticket-image{
-    margin-right: 4px;
+.ticket-image {
+    margin-bottom: 10px; /* Espacement entre l'image et le QR code sur petits écrans */
+    width: 80vw; /* Ajuster l'image du ticket à 80% de la largeur de l'écran */
+    max-width: 500px; /* Limite maximale de 500px */
 }
+
+@media (max-width: 600px) {
+    .ticket-container {
+        width: 100%; /* Utiliser toute la largeur de l'écran sur mobile */
+    }
+
+    .ticket-body {
+        flex-direction: column; /* Passer les éléments en colonne sur mobile */
+    }
+
+    .qr-code {
+        width: 50vw; /* Ajuster le QR code à 50% de la largeur de l'écran sur mobile */
+    }
+
+    .ticket-image {
+        width: 100%; /* Utiliser toute la largeur de l'écran pour l'image */
+    }
+}
+

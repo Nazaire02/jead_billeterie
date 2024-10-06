@@ -38,27 +38,33 @@ const MyTicket = () => {
 
     const handleGeneratePdf = () => {
         if (ticketRef.current) {
-            ticketsData.forEach((ticketData, index) => {
-                html2canvas(ticketRef.current as HTMLElement, {
+            // Utilisation de html2canvas pour chaque ticket et les ajouter dans un seul document PDF
+            const doc = new jsPDF('landscape', 'mm', 'a4'); // Créer un PDF en paysage
+            let promises = ticketsData.map((ticketData, index) => {
+                console.log(ticketData)
+                return html2canvas(ticketRef.current as HTMLElement, {
                     scale: 2,
                     useCORS: true
                 }).then((canvas) => {
                     const imgData = canvas.toDataURL('image/png');
-                    const imgWidth = canvas.width;
-                    const imgHeight = canvas.height;
-
-                    const doc = new jsPDF({
-                        orientation: 'landscape',
-                        unit: 'px',
-                        format: [imgWidth, imgHeight],
-                    });
-
+                    const imgWidth = canvas.width * 0.264583; // Convertir les pixels en mm
+                    const imgHeight = canvas.height * 0.264583; // Convertir les pixels en mm
+    
+                    // Ajouter chaque ticket dans une nouvelle page du PDF
+                    if (index > 0) {
+                        doc.addPage();
+                    }
                     doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    doc.save(`jaed_show_${ticketData.token}_${index}`);
                 });
+            });
+    
+            // Attendre que toutes les pages soient générées puis sauvegarder le PDF
+            Promise.all(promises).then(() => {
+                doc.save('jaed_show_tickets.pdf');
             });
         }
     };
+    
 
     if (isError) {
         return (
