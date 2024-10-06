@@ -18,7 +18,7 @@ const MyTicket = () => {
         setIsLoading(true);
         try {
             const res = await getPayments(token);
-            console.log( res.data)
+            console.log(res.data)
             if (res.data.statut === true) {
                 const tickets: TicketData[] = res.data.payments;
                 setTicketsData(tickets);
@@ -37,27 +37,53 @@ const MyTicket = () => {
     }, [])
 
     const handleGeneratePdf = () => {
-        if (ticketRef.current) {
-            ticketsData.forEach((ticketData, index) => {
-                html2canvas(ticketRef.current as HTMLElement, {
-                    scale: 2,
-                    useCORS: true
-                }).then((canvas) => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const imgWidth = canvas.width;
-                    const imgHeight = canvas.height;
+        const doc = new jsPDF({
+            orientation: 'landscape',
+            unit: 'px',
+        });
 
-                    const doc = new jsPDF({
-                        orientation: 'landscape',
-                        unit: 'px',
-                        format: [imgWidth, imgHeight],
-                    });
+        const generateTicketPDF = async (ticketData: TicketData, index: number) => {
+            if (ticketRef.current) {
+                // Créez une nouvelle div temporaire pour le ticket
+                const ticketDiv = document.createElement('div');
+                ticketDiv.className = 'ticket-container';
+                ticketDiv.innerHTML = `
+                    <div class="ticket-body">
+                        <div class="ticket-image">
+                            <img src="${ticket}" alt="Ticket" width="500" />
+                        </div>
+                        <div>
+                                    <QRCode value=${ticketData._id} size={210} />
+                        </div>
+                    </div>
+                `;
 
-                    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    doc.save(`jaed_show_${ticketData.token}_${index}`);
-                });
-            });
-        }
+                // Convertissez le ticket en image
+                const canvas = await html2canvas(ticketDiv, { scale: 2, useCORS: true });
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = canvas.width;
+                const imgHeight = canvas.height;
+
+                // Ajoutez l'image au document PDF
+                doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+
+                // Ajoutez une nouvelle page pour le ticket suivant, sauf pour le dernier ticket
+                if (index < ticketsData.length - 1) {
+                    doc.addPage();
+                }
+            }
+        };
+
+        // Générez les tickets un par un
+        const generateTickets = async () => {
+            for (let i = 0; i < ticketsData.length; i++) {
+                await generateTicketPDF(ticketsData[i], i);
+            }
+            // Enregistrez le PDF une fois tous les tickets ajoutés
+            doc.save('tickets.pdf');
+        };
+
+        generateTickets();
     };
 
     if (isError) {
@@ -112,4 +138,5 @@ const MyTicket = () => {
         </>
     );
 }
+
 export default MyTicket;
