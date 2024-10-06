@@ -40,30 +40,25 @@ const MyTicket = () => {
         if (ticketRef.current) {
             ticketsData.forEach((ticketData, index) => {
                 html2canvas(ticketRef.current as HTMLElement, {
-                    scale: 2, // Augmente la résolution pour le PDF
-                    useCORS: true, // Gère les images cross-origin
-                    width: ticketRef.current.offsetWidth, // Prendre en compte la largeur réelle
+                    scale: 2,
+                    useCORS: true
                 }).then((canvas) => {
                     const imgData = canvas.toDataURL('image/png');
                     const imgWidth = canvas.width;
                     const imgHeight = canvas.height;
-    
-                    // Ajuster l'orientation et les dimensions pour petits écrans
-                    const isSmallScreen = window.innerWidth <= 600;
+
                     const doc = new jsPDF({
                         orientation: 'landscape',
                         unit: 'px',
-                        format: isSmallScreen ? [imgWidth / 2, imgHeight / 2] : [imgWidth, imgHeight], // Ajuster pour petits écrans
+                        format: [imgWidth, imgHeight],
                     });
-    
+
                     doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    doc.save(`jaed_show_${ticketData.token}_${index}.pdf`);
+                    doc.save(`jaed_show_${ticketData.token}_${index}`);
                 });
             });
         }
     };
-    
-    
 
     if (isError) {
         return (
