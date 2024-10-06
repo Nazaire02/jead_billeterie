@@ -36,55 +36,38 @@ const MyTicket = () => {
         getPaymentsByToken();
     }, [])
 
-    const handleGeneratePdf = () => {
-        const doc = new jsPDF({
-            orientation: 'landscape',
-            unit: 'px',
-        });
+    const handleGeneratePdf = async () => {
+        if (ticketRef.current) {
+            const doc = new jsPDF({
+                orientation: 'portrait',
+                unit: 'px',
+                format: 'a4',
+            });
 
-        const generateTicketPDF = async (ticketData: TicketData, index: number) => {
-            if (ticketRef.current) {
-                // Créez une nouvelle div temporaire pour le ticket
-                const ticketDiv = document.createElement('div');
-                ticketDiv.className = 'ticket-container';
-                ticketDiv.innerHTML = `
-                    <div class="ticket-body">
-                        <div class="ticket-image">
-                            <img src="${ticket}" alt="Ticket" width="500" />
-                        </div>
-                        <div>
-                                    <QRCode value=${ticketData._id} size={210} />
-                        </div>
-                    </div>
-                `;
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
 
-                // Convertissez le ticket en image
-                const canvas = await html2canvas(ticketDiv, { scale: 2, useCORS: true });
+            for (let index = 0; index < ticketsData.length; index++) {
+                const canvas = await html2canvas(ticketRef.current as HTMLElement, {
+                    scale: 2,
+                    useCORS: true,
+                });
                 const imgData = canvas.toDataURL('image/png');
                 const imgWidth = canvas.width;
                 const imgHeight = canvas.height;
-
-                // Ajoutez l'image au document PDF
-                doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-
-                // Ajoutez une nouvelle page pour le ticket suivant, sauf pour le dernier ticket
+                const ratio = Math.min(pageWidth / imgWidth, pageHeight / imgHeight);
+                const scaledWidth = imgWidth * ratio;
+                const scaledHeight = imgHeight * ratio;
+                doc.addImage(imgData, 'PNG', 0, 0, scaledWidth, scaledHeight);
                 if (index < ticketsData.length - 1) {
                     doc.addPage();
                 }
             }
-        };
-
-        // Générez les tickets un par un
-        const generateTickets = async () => {
-            for (let i = 0; i < ticketsData.length; i++) {
-                await generateTicketPDF(ticketsData[i], i);
-            }
-            // Enregistrez le PDF une fois tous les tickets ajoutés
-            doc.save('tickets.pdf');
-        };
-
-        generateTickets();
+            doc.save(`jaed_show_tickets.pdf`);
+        }
     };
+
+
 
     if (isError) {
         return (
@@ -112,31 +95,32 @@ const MyTicket = () => {
                         alignItems: "center",
                     }}
                 >
-                    <button className="btn btn-primary mb-3" onClick={handleGeneratePdf}>
+                    <button className="btn btn-primary mb-3 downloadBtn" onClick={handleGeneratePdf}>
                         Télécharger les {ticketsData.length} tickets
                     </button>
 
-                    {ticketsData.map((ticketData, index) => (
-                        <div
-                            key={index}
-                            ref={ticketRef}
-                            className="ticket-container"
-                            style={{ marginBottom: "20px" }}
-                        >
-                            <div className="ticket-body">
-                                <div className="ticket-image">
-                                    <img src={ticket} alt="Ticket" width={500} />
-                                </div>
-                                <div>
-                                    <QRCode value={ticketData._id} size={210} />
+                    <div>
+                        {ticketsData.map((ticketData, index) => (
+                            <div
+                                key={index}
+                                className="ticket-container"
+                                ref={ticketRef}
+                            >
+                                <div className="ticket-body">
+                                    <div className="ticket-image">
+                                        <img src={ticket} alt="Ticket" />
+                                    </div>
+                                    <div className="qr-code">
+                                        <QRCode value={ticketData._id} size={210} />
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+
                 </div>
             )}
         </>
     );
 }
-
 export default MyTicket;

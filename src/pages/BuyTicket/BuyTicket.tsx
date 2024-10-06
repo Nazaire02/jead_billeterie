@@ -79,7 +79,7 @@ function BuyTicket() {
 
       {numStep === 1 && (
         <>
-          <div className="col-12 text-center mt-3" style={{ marginBottom: 100 }}>
+          <div className="col-12 text-center mt-3 selection-text" style={{ marginBottom: 100 }}>
             <h4>Sélection des tickets</h4>
             <div className="bar-border1 mx-auto mb-2"></div>
             <p>Choisissez la quantité de ticket pour chaque catégorie.</p>
