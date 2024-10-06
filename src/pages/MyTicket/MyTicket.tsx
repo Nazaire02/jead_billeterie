@@ -8,7 +8,7 @@ import { getPayments } from '../../api/payment';
 import { TicketData } from '../../class/ticketData';
 
 const MyTicket = () => {
-    const ticketRef = useRef<HTMLDivElement>(null);
+    const ticketRefs = useRef<(HTMLDivElement | null)[]>([]);
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [ticketsData, setTicketsData] = useState<TicketData[]>([]);
@@ -18,7 +18,6 @@ const MyTicket = () => {
         setIsLoading(true);
         try {
             const res = await getPayments(token);
-            console.log( res.data)
             if (res.data.statut === true) {
                 const tickets: TicketData[] = res.data.payments;
                 setTicketsData(tickets);
@@ -34,30 +33,32 @@ const MyTicket = () => {
 
     useEffect(() => {
         getPaymentsByToken();
-    }, [])
+    }, []);
 
-    const handleGeneratePdf = () => {
-        if (ticketRef.current) {
-            ticketsData.forEach((ticketData, index) => {
-                html2canvas(ticketRef.current as HTMLElement, {
-                    scale: 2,
-                    useCORS: true
-                }).then((canvas) => {
-                    const imgData = canvas.toDataURL('image/png');
-                    const imgWidth = canvas.width;
-                    const imgHeight = canvas.height;
+    const handleGeneratePdf = async () => {
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'px',
+            format: 'a4',
+        });
 
-                    const doc = new jsPDF({
-                        orientation: 'landscape',
-                        unit: 'px',
-                        format: [imgWidth, imgHeight],
-                    });
+        for (let i = 0; i < ticketsData.length; i++) {
+            const ticketElement = ticketRefs.current[i];
+            if (ticketElement) {
+                const canvas = await html2canvas(ticketElement, { scale: 2, useCORS: true });
+                const imgData = canvas.toDataURL('image/png');
+                const imgWidth = 595.28; // Largeur A4 en pixels
+                const imgHeight = (canvas.height * imgWidth) / canvas.width;
+                
+                if (i > 0) {
+                    doc.addPage(); // Ajouter une nouvelle page après la première
+                }
 
-                    doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
-                    doc.save(`jaed_show_${ticketData.token}_${index}`);
-                });
-            });
+                doc.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
+            }
         }
+
+        doc.save(`tickets.pdf`);
     };
 
     if (isError) {
@@ -93,7 +94,7 @@ const MyTicket = () => {
                     {ticketsData.map((ticketData, index) => (
                         <div
                             key={index}
-                            ref={ticketRef}
+                            ref={(el) => (ticketRefs.current[index] = el)}
                             className="ticket-container"
                             style={{ marginBottom: "20px" }}
                         >
@@ -111,5 +112,6 @@ const MyTicket = () => {
             )}
         </>
     );
-}
+};
+
 export default MyTicket;
