@@ -1,7 +1,7 @@
 import axios from "axios"
 
 //const BACKEND_BASE_URL = "http://localhost:8081/api/"
-const BACKEND_BASE_URL = "http://151.80.117.157:8081/api/"
+const BACKEND_BASE_URL = "https://api.billeterie.lezard-corp.tech/api/"
 
 const config = {
     headers: {

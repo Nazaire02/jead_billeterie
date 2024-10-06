@@ -1,4 +1,4 @@
-import artistePicture from '../../assets/images/affiche.jpg';
+import artistePicture from '../../assets/images/affiche.png';
 import './Apropos.css';
 
 function Apropos() {
@@ -12,11 +12,8 @@ function Apropos() {
         </div>
         <div className='col-lg-6'>
           <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt
-            ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-            laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate
-            velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident,
-            sunt in culpa qui officia deserunt mollit anim id est laborum. <br />
+          A la fois chanteur rappeur et musicien le duo Jaed est capable de faire voyager le Public à travers plusieurs styles musicaux tels que 
+          l'Afro beat, le rap, le rnb, la soul, le jazz, la bossa nova. <br />
           </p>
         </div>
       </div>

@@ -4,7 +4,7 @@ import Stepper from '@mui/material/Stepper';
 import Step from '@mui/material/Step';
 import StepLabel from '@mui/material/StepLabel';
 import './BuyTicket.css';
-import affiche from '../../assets/images/affiche.jpg';
+import affiche from '../../assets/images/affiche.png';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft, faCalendarMinus, faMapLocation } from '@fortawesome/free-solid-svg-icons';
 import { createPaymentLink } from '../../api/payment';

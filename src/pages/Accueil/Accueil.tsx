@@ -1,5 +1,5 @@
 import './Accueil.css';
-import affiche from '../../assets/images/affiche.jpg'
+import affiche from '../../assets/images/affiche.png'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faCalendarMinus } from '@fortawesome/free-solid-svg-icons';
 import { faMapLocation } from '@fortawesome/free-solid-svg-icons';
