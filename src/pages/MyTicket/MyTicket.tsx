@@ -12,14 +12,8 @@ const MyTicket = () => {
 
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [isDownloading, setIsDownloading] = useState(false); // New state for downloading status
-    const [ticketsData, setTicketsData] = useState<TicketData[]>([
-        { _id: 'aaaaaa', token: 'nananana' },
-        { _id: 'bbbbbb', token: 'nananana' },
-        { _id: 'cccccc', token: 'nananana' },
-        { _id: 'eeeeee', token: 'nananana' },
-        { _id: 'dddddd', token: 'nananana' },
-    ]);
+    const [isDownloading, setIsDownloading] = useState(false);
+    const [ticketsData, setTicketsData] = useState<TicketData[]>([]);
 
     const getPaymentsByToken = async () => {
         const token = localStorage.getItem("token");
@@ -39,6 +33,10 @@ const MyTicket = () => {
             setIsLoading(false);
         }
     };
+
+    useEffect(() => {
+        getPaymentsByToken();
+    }, [])
 
     const handleGeneratePdf = async () => {
         setIsDownloading(true);
