@@ -8,17 +8,25 @@ import { getPayments } from '../../api/payment';
 import { TicketData } from '../../class/ticketData';
 
 const MyTicket = () => {
-    const ticketRef = useRef<HTMLDivElement>(null);
+    const ticketRef = useRef<(HTMLDivElement | null)[]>([]);
+
     const [isError, setIsError] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [ticketsData, setTicketsData] = useState<TicketData[]>([]);
+    const [isDownloading, setIsDownloading] = useState(false); // New state for downloading status
+    const [ticketsData, setTicketsData] = useState<TicketData[]>([
+        { _id: 'aaaaaa', token: 'nananana' },
+        { _id: 'bbbbbb', token: 'nananana' },
+        { _id: 'cccccc', token: 'nananana' },
+        { _id: 'eeeeee', token: 'nananana' },
+        { _id: 'dddddd', token: 'nananana' },
+    ]);
 
     const getPaymentsByToken = async () => {
         const token = localStorage.getItem("token");
         setIsLoading(true);
         try {
             const res = await getPayments(token);
-            console.log(res.data)
+            console.log(res.data);
             if (res.data.statut === true) {
                 const tickets: TicketData[] = res.data.payments;
                 setTicketsData(tickets);
@@ -32,23 +40,21 @@ const MyTicket = () => {
         }
     };
 
-    useEffect(() => {
-        getPaymentsByToken();
-    }, [])
-
     const handleGeneratePdf = async () => {
-        if (ticketRef.current) {
-            const doc = new jsPDF({
-                orientation: 'portrait',
-                unit: 'px',
-                format: 'a4',
-            });
+        setIsDownloading(true);
+        const doc = new jsPDF({
+            orientation: 'portrait',
+            unit: 'px',
+            format: 'a4',
+        });
 
-            const pageWidth = doc.internal.pageSize.getWidth();
-            const pageHeight = doc.internal.pageSize.getHeight();
+        const pageWidth = doc.internal.pageSize.getWidth();
+        const pageHeight = doc.internal.pageSize.getHeight();
 
-            for (let index = 0; index < ticketsData.length; index++) {
-                const canvas = await html2canvas(ticketRef.current as HTMLElement, {
+        for (let index = 0; index < ticketsData.length; index++) {
+            const currentRef = ticketRef.current[index];
+            if (currentRef) {
+                const canvas = await html2canvas(currentRef, {
                     scale: 2,
                     useCORS: true,
                 });
@@ -63,11 +69,11 @@ const MyTicket = () => {
                     doc.addPage();
                 }
             }
-            doc.save(`jaed_show_tickets.pdf`);
         }
+
+        doc.save(`jaed_show_tickets_${ticketsData[0].token}.pdf`);
+        setIsDownloading(false);
     };
-
-
 
     if (isError) {
         return (
@@ -95,8 +101,8 @@ const MyTicket = () => {
                         alignItems: "center",
                     }}
                 >
-                    <button className="btn btn-primary mb-3 downloadBtn" onClick={handleGeneratePdf}>
-                        Télécharger les {ticketsData.length} tickets
+                    <button className="btn btn-primary mb-3 downloadBtn" onClick={handleGeneratePdf} disabled={isDownloading}>
+                        {isDownloading ? 'Téléchargement en cours...' : `Télécharger les ${ticketsData.length} tickets`}
                     </button>
 
                     <div>
@@ -104,7 +110,7 @@ const MyTicket = () => {
                             <div
                                 key={index}
                                 className="ticket-container"
-                                ref={ticketRef}
+                                ref={(el) => (ticketRef.current[index] = el)}
                             >
                                 <div className="ticket-body">
                                     <div className="ticket-image">
@@ -117,10 +123,10 @@ const MyTicket = () => {
                             </div>
                         ))}
                     </div>
-
                 </div>
             )}
         </>
     );
-}
+};
+
 export default MyTicket;
