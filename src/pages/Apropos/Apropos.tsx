@@ -1,4 +1,4 @@
-import artistePicture from '../../assets/images/affiche.png';
+import artistePicture from '../../assets/images/jaed.png';
 import './Apropos.css';
 
 function Apropos() {
